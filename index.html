@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HubHome — O condomínio inteligente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --blue:#1338BE;--blue-light:#E8EDFF;--blue-mid:#4361EE;
+  --ink:#0A0A14;--ink2:#3a3a4a;--muted:#7a7a8c;
+  --white:#FAFAFA;--cream:#F5F3EE;--border:rgba(10,10,20,.10);--r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 5%;background:rgba(250,250,250,.9);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-hh{width:34px;height:34px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.nav-hh svg{width:20px;height:20px}
+.nav-name{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ink);letter-spacing:-.3px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:14px;color:var(--ink2);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-cta{background:var(--blue);color:#fff;font-size:14px;font-weight:500;padding:9px 22px;border-radius:50px;text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:var(--blue-mid);transform:translateY(-1px)}
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.5}
+.hero-blob{position:absolute;right:-10%;top:10%;width:55%;height:80%;background:var(--blue-light);border-radius:60% 40% 50% 60%/40% 60% 40% 60%;opacity:.5;animation:morph 8s ease-in-out infinite}
+@keyframes morph{0%,100%{border-radius:60% 40% 50% 60%/40% 60% 40% 60%}50%{border-radius:40% 60% 60% 40%/60% 40% 60% 40%}}
+.hero-content{position:relative;z-index:1;max-width:640px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--blue-light);color:var(--blue);font-size:12px;font-weight:500;padding:6px 14px;border-radius:50px;margin-bottom:28px;letter-spacing:.3px}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.3)}}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(42px,6vw,72px);line-height:1.05;letter-spacing:-1.5px;color:var(--ink);margin-bottom:24px}
+h1 em{font-style:italic;color:var(--blue)}
+.hero-sub{font-size:18px;color:var(--ink2);line-height:1.7;max-width:480px;margin-bottom:40px;font-weight:300}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn-primary{background:var(--blue);color:#fff;font-size:15px;font-weight:500;padding:14px 32px;border-radius:50px;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:var(--blue-mid);transform:translateY(-2px)}
+.btn-primary svg{width:16px;height:16px}
+.btn-ghost{color:var(--blue);font-size:15px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+.btn-ghost:hover{gap:10px}
+.hero-stats{display:flex;gap:32px;margin-top:56px;padding-top:40px;border-top:0.5px solid var(--border)}
+.stat-val{font-family:'DM Serif Display',serif;font-size:32px;color:var(--ink)}
+.stat-lbl{font-size:13px;color:var(--muted);margin-top:2px}
+.logos-bar{background:var(--cream);padding:28px 5%;border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
+.logos-inner{display:flex;align-items:center;gap:48px;overflow-x:auto;justify-content:center;flex-wrap:wrap}
+.logo-item{font-family:'DM Serif Display',serif;font-size:16px;color:var(--muted);white-space:nowrap;opacity:.7}
+section{padding:100px 5%}
+.section-label{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,4vw,52px);line-height:1.1;letter-spacing:-.8px;margin-bottom:20px;color:var(--ink)}
+.section-sub{font-size:17px;color:var(--ink2);line-height:1.7;max-width:520px;font-weight:300}
+.problems{background:var(--ink)}
+.problems .section-label{color:#6B8CFF}
+.problems .section-title{color:var(--white)}
+.problems .section-sub{color:rgba(255,255,255,.6)}
+.problems-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(255,255,255,.08);margin-top:56px;border:1px solid rgba(255,255,255,.08);border-radius:var(--r);overflow:hidden}
+.prob-card{background:var(--ink);padding:32px 28px}
+.prob-icon{font-size:28px;margin-bottom:16px}
+.prob-title{font-size:16px;font-weight:500;color:var(--white);margin-bottom:8px}
+.prob-text{font-size:14px;color:rgba(255,255,255,.5);line-height:1.7}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:56px}
+.how-steps{display:flex;flex-direction:column;gap:0}
+.how-step{display:flex;gap:20px;padding:24px 0;border-bottom:0.5px solid var(--border);cursor:pointer;transition:all .2s}
+.how-step:last-child{border-bottom:none}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--blue-light);color:var(--blue);font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.how-step:hover .step-num{background:var(--blue);color:#fff}
+.step-content h4{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.step-content p{font-size:13px;color:var(--muted);line-height:1.6}
+.how-visual{background:var(--blue-light);border-radius:24px;padding:32px;min-height:360px;display:flex;flex-direction:column;justify-content:space-between;border:0.5px solid rgba(19,56,190,.15)}
+.how-visual-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--blue);margin-bottom:20px}
+.how-mock-item{background:#fff;border-radius:10px;padding:12px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;border:0.5px solid rgba(19,56,190,.1)}
+.mock-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.mock-dot.green{background:#22C55E}
+.mock-dot.amber{background:#F59E0B}
+.mock-dot.red{background:#EF4444}
+.mock-text{font-size:13px;color:var(--ink2)}
+.mock-badge{margin-left:auto;font-size:10px;padding:3px 8px;border-radius:20px}
+.mock-badge.g{background:#DCFCE7;color:#16A34A}
+.mock-badge.a{background:#FEF9C3;color:#A16207}
+.mock-badge.r{background:#FEE2E2;color:#DC2626}
+.features{background:var(--cream)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.feat-card{background:var(--white);border-radius:var(--r);padding:28px;border:0.5px solid var(--border);transition:transform .2s}
+.feat-card:hover{transform:translateY(-4px)}
+.feat-icon{width:44px;height:44px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:20px}
+.feat-title{font-size:16px;font-weight:500;color:var(--ink);margin-bottom:8px}
+.feat-text{font-size:14px;color:var(--muted);line-height:1.7}
+.ai-section{background:var(--blue);overflow:hidden;position:relative}
+.ai-section .section-label{color:rgba(255,255,255,.6)}
+.ai-section .section-title{color:#fff}
+.ai-section .section-sub{color:rgba(255,255,255,.7)}
+.ai-bg{position:absolute;right:-5%;top:-20%;width:500px;height:500px;border-radius:50%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+.ai-bg2{position:absolute;right:5%;top:10%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.ai-chat{background:rgba(255,255,255,.08);border:0.5px solid rgba(255,255,255,.15);border-radius:20px;padding:24px;margin-top:48px;max-width:560px}
+.ai-msg{display:flex;gap:10px;margin-bottom:14px;align-items:flex-start}
+.ai-avatar{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#fff;flex-shrink:0}
+.ai-bubble{font-size:13px;line-height:1.6;padding:10px 14px;border-radius:12px;max-width:85%}
+.ai-bubble.bot{background:rgba(255,255,255,.12);color:#fff;border-radius:4px 12px 12px 12px}
+.ai-bubble.user{background:#fff;color:var(--blue);border-radius:12px 4px 12px 12px;margin-left:auto}
+.ai-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.ai-chip{font-size:12px;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:0.5px solid rgba(255,255,255,.2)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.price-card{border-radius:var(--r);padding:32px;border:0.5px solid var(--border);background:var(--white);position:relative}
+.price-card.featured{background:var(--blue);border-color:var(--blue)}
+.price-popular{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:11px;font-weight:500;padding:5px 14px;border-radius:20px;white-space:nowrap}
+.price-name{font-size:13px;font-weight:500;color:var(--muted);margin-bottom:12px;letter-spacing:.3px;text-transform:uppercase}
+.price-card.featured .price-name{color:rgba(255,255,255,.6)}
+.price-val{font-family:'DM Serif Display',serif;font-size:42px;color:var(--ink);margin-bottom:4px;line-height:1}
+.price-card.featured .price-val{color:#fff}
+.price-period{font-size:13px;color:var(--muted);margin-bottom:24px}
+.price-card.featured .price-period{color:rgba(255,255,255,.6)}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.price-features li{font-size:14px;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.price-card.featured .price-features li{color:rgba(255,255,255,.85)}
+.price-features li::before{content:'✓';color:var(--blue);font-weight:500;flex-shrink:0}
+.price-card.featured .price-features li::before{color:rgba(255,255,255,.8)}
+.price-btn{display:block;text-align:center;padding:12px;border-radius:50px;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s}
+.price-btn.outline{border:1px solid var(--border);color:var(--ink)}
+.price-btn.outline:hover{border-color:var(--blue);color:var(--blue)}
+.price-btn.solid{background:#fff;color:var(--blue)}
+.price-btn.solid:hover{background:var(--blue-light)}
+.price-btn.dark{background:var(--blue);color:#fff}
+.price-btn.dark:hover{background:var(--blue-mid)}
+.testimonials{background:var(--cream)}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.test-card{background:var(--white);border-radius:var(--r);padding:28px;border:0.5px solid var(--border)}
+.test-quote{font-size:15px;color:var(--ink2);line-height:1.7;margin-bottom:20px;font-style:italic;font-family:'DM Serif Display',serif}
+.test-author{display:flex;align-items:center;gap:10px}
+.test-avatar{width:36px;height:36px;border-radius:50%;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--blue)}
+.test-name{font-size:13px;font-weight:500;color:var(--ink)}
+.test-role{font-size:12px;color:var(--muted)}
+.cta-final{background:var(--ink);text-align:center;padding:120px 5%}
+.cta-final .section-title{color:var(--white);margin:0 auto 20px;max-width:560px}
+.cta-final .section-sub{color:rgba(255,255,255,.5);margin:0 auto 40px}
+.cta-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+footer{padding:40px 5%;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--ink)}
+.footer-copy{font-size:13px;color:var(--muted)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:13px;color:var(--muted);text-decoration:none}
+.footer-links a:hover{color:var(--blue)}
+.fade-up{opacity:0;transform:translateY(24px);animation:fadeUp .6s ease forwards}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}.delay-4{animation-delay:.4s}
+@media(max-width:768px){
+  .hero{padding:100px 5% 60px}
+  .how-grid,.features-grid,.pricing-grid,.test-grid{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column;gap:20px}
+  nav .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">
+    <div class="nav-hh"><svg viewBox="0 0 24 24" fill="none"><path d="M3 10.5L12 3L21 10.5V20C21 20.55 20.55 21 20 21H15V15H9V21H4C3.45 21 3 20.55 3 20V10.5Z" fill="white"/></svg></div>
+    <span class="nav-name">HubHome</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#como-funciona">Como funciona</a></li>
+    <li><a href="#funcionalidades">Funcionalidades</a></li>
+    <li><a href="#precos">Preços</a></li>
+  </ul>
+  <a href="app.html" class="nav-cta">Acessar o app →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"><div class="hero-grid"></div><div class="hero-blob"></div></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-up"><span class="hero-eyebrow-dot"></span>Novo · IA para condomínios</div>
+    <h1 class="fade-up delay-1">O condomínio <em>inteligente</em> começa aqui.</h1>
+    <p class="hero-sub fade-up delay-2">HubHome reúne moradores, síndico e portaria em um só app — com IA que conhece seu regulamento e resolve dúvidas em segundos.</p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="app.html" class="btn-primary">
+        Experimentar o app agora
+        <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#como-funciona" class="btn-ghost">Ver como funciona →</a>
+    </div>
+    <div class="hero-stats fade-up delay-4">
+      <div><div class="stat-val">92</div><div class="stat-lbl">unidades no piloto</div></div>
+      <div><div class="stat-val">4</div><div class="stat-lbl">perfis de acesso</div></div>
+      <div><div class="stat-val">0</div><div class="stat-lbl">papel, tudo digital</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="logos-bar">
+  <div class="logos-inner">
+    <span class="logo-item">Tradition Brooklin</span><span class="logo-item">·</span>
+    <span class="logo-item">Condomínios SP</span><span class="logo-item">·</span>
+    <span class="logo-item">Edifícios Residenciais</span><span class="logo-item">·</span>
+    <span class="logo-item">Administradoras</span><span class="logo-item">·</span>
+    <span class="logo-item">Síndicos Profissionais</span>
+  </div>
+</div>
+
+<section class="problems">
+  <div class="section-label">O problema</div>
+  <div class="section-title" style="color:var(--white);max-width:560px">Gerenciar condomínio ainda é caótico.</div>
+  <div class="problems-grid">
+    <div class="prob-card"><div class="prob-icon">📱</div><div class="prob-title">WhatsApp virou central de tudo</div><div class="prob-text">Chamados, reclamações, avisos e reservas num único grupo impossível de gerenciar.</div></div>
+    <div class="prob-card"><div class="prob-icon">📄</div><div class="prob-title">Ninguém lê o regulamento</div><div class="prob-text">Documento de 30 páginas que ninguém consulta — e infrações acontecem por puro desconhecimento.</div></div>
+    <div class="prob-card"><div class="prob-icon">🔒</div><div class="prob-title">Portaria sem controle real</div><div class="prob-text">Prestadores entram sem cadastro, visitantes sem identificação, risco real de segurança.</div></div>
+    <div class="prob-card"><div class="prob-icon">📅</div><div class="prob-title">Agendamentos em papel</div><div class="prob-text">Salão de festas, churrasqueira e piscina reservados em cadernos ou planilhas perdidas.</div></div>
+  </div>
+</section>
+
+<section id="como-funciona">
+  <div class="section-label">Como funciona</div>
+  <div class="section-title">Tudo resolvido em minutos,<br/>não em dias.</div>
+  <div class="how-grid">
+    <div class="how-steps">
+      <div class="how-step"><div class="step-num">1</div><div class="step-content"><h4>Condomínio configurado em 1 dia</h4><p>Envie seu regulamento e convenção. A IA é treinada automaticamente com as regras do seu condomínio.</p></div></div>
+      <div class="how-step"><div class="step-num">2</div><div class="step-content"><h4>Moradores recebem o acesso</h4><p>Link ou QR code. Cada um escolhe seu perfil — morador, locatário ou familiar.</p></div></div>
+      <div class="how-step"><div class="step-num">3</div><div class="step-content"><h4>Síndico no controle total</h4><p>Chamados, agendamentos e ocorrências em um painel. Notificações em tempo real.</p></div></div>
+      <div class="how-step"><div class="step-num">4</div><div class="step-content"><h4>IA responde pelo regulamento</h4><p>Moradores tiram dúvidas 24h com a IA treinada nas regras do próprio condomínio.</p></div></div>
+    </div>
+    <div class="how-visual">
+      <div class="how-visual-title">Central de chamados</div>
+      <div class="how-mock-item"><div class="mock-dot red"></div><div class="mock-text">Portão da garagem com defeito</div><span class="mock-badge r">Urgente</span></div>
+      <div class="how-mock-item"><div class="mock-dot amber"></div><div class="mock-text">Vazamento corredor 8º andar</div><span class="mock-badge a">Em andamento</span></div>
+      <div class="how-mock-item"><div class="mock-dot green"></div><div class="mock-text">Dedetização programada</div><span class="mock-badge g">Concluído</span></div>
+      <div class="how-mock-item"><div class="mock-dot amber"></div><div class="mock-text">Lâmpada hall 3º andar</div><span class="mock-badge a">Aguardando</span></div>
+      <div style="margin-top:16px;padding-top:16px;border-top:0.5px solid rgba(19,56,190,.1);font-size:12px;color:var(--muted)">4 chamados abertos · 2 resolvidos hoje</div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="funcionalidades">
+  <div class="section-label">Funcionalidades</div>
+  <div class="section-title">Tudo que um condomínio precisa,<br/>em um lugar só.</div>
+  <div class="features-grid">
+    <div class="feat-card"><div class="feat-icon">🤖</div><div class="feat-title">IA com o seu regulamento</div><div class="feat-text">Treinada com os documentos do seu condomínio. Responde sobre regras, horários, multas e procedimentos em linguagem simples.</div></div>
+    <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-title">Chamados e ocorrências</div><div class="feat-text">Moradores abrem chamados com categoria e prioridade. Síndico acompanha e resolve. Histórico completo registrado.</div></div>
+    <div class="feat-card"><div class="feat-icon">📅</div><div class="feat-title">Agendamento de áreas</div><div class="feat-text">Salão, churrasqueira, piscina e academia. Reserva online com confirmação do síndico e notificação automática.</div></div>
+    <div class="feat-card"><div class="feat-icon">🔐</div><div class="feat-title">Controle de acesso</div><div class="feat-text">Portaria registra visitantes e prestadores. Moradores autorizam a distância. Histórico de entradas e saídas.</div></div>
+    <div class="feat-card"><div class="feat-icon">📢</div><div class="feat-title">Avisos e comunicados</div><div class="feat-text">Síndico envia comunicados para todos ou por andar. Push notification, sem depender de grupo de WhatsApp.</div></div>
+    <div class="feat-card"><div class="feat-icon">🏷️</div><div class="feat-title">White-label completo</div><div class="feat-text">Cada condomínio tem seu app com nome, cor e documentos próprios. Experiência personalizada do início ao fim.</div></div>
+  </div>
+</section>
+
+<section class="ai-section">
+  <div class="ai-bg"></div><div class="ai-bg2"></div>
+  <div style="position:relative;z-index:1">
+    <div class="section-label">Assistente inteligente</div>
+    <div class="section-title">Dúvidas respondidas em segundos.</div>
+    <div class="section-sub">A IA do HubHome conhece cada regra do seu condomínio. Moradores perguntam, ela responde — 24 horas por dia.</div>
+    <div class="ai-chat">
+      <div class="ai-msg"><div class="ai-avatar">MO</div><div class="ai-bubble user">Posso reservar o salão para sábado?</div></div>
+      <div class="ai-msg"><div class="ai-avatar" style="background:rgba(255,255,255,.2);font-size:10px">HH</div><div class="ai-bubble bot">Sim! Reserva com 3 dias de antecedência. Sábados até meia-noite. Taxa: 30% da cota condominial. Quer que eu abra a reserva agora?</div></div>
+      <div class="ai-msg"><div class="ai-avatar">MO</div><div class="ai-bubble user">Posso ter cachorro grande?</div></div>
+      <div class="ai-msg"><div class="ai-avatar" style="background:rgba(255,255,255,.2);font-size:10px">HH</div><div class="ai-bubble bot">Pelo Regulamento Interno, apenas animais de pequeno e médio porte são permitidos. Animais de grande porte são proibidos.</div></div>
+      <div class="ai-chips"><span class="ai-chip">Horário de obras</span><span class="ai-chip">Como fazer içamento</span><span class="ai-chip">Regras da piscina</span><span class="ai-chip">Valor das multas</span></div>
+    </div>
+    <div style="margin-top:28px">
+      <a href="app.html" class="btn-primary" style="background:#fff;color:var(--blue);display:inline-flex">
+        Testar a IA agora
+        <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="precos">
+  <div class="section-label">Preços</div>
+  <div class="section-title">Simples, transparente,<br/>sem surpresas.</div>
+  <div class="section-sub">Plano mensal por condomínio. Sem taxa de setup. Cancele quando quiser.</div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Starter</div>
+      <div class="price-val">R$149</div>
+      <div class="price-period">por mês · até 100 unidades</div>
+      <ul class="price-features">
+        <li>App white-label</li><li>Chamados e ocorrências</li><li>Agendamento de áreas</li><li>IA com regulamento</li><li>4 perfis de acesso</li>
+      </ul>
+      <a href="app.html" class="price-btn outline">Testar grátis por 30 dias</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-popular">Mais popular</div>
+      <div class="price-name">Pro</div>
+      <div class="price-val" style="color:#fff">R$299</div>
+      <div class="price-period">por mês · até 300 unidades</div>
+      <ul class="price-features">
+        <li>Tudo do Starter</li><li>Controle de acesso portaria</li><li>Comunicados segmentados</li><li>Relatórios e métricas</li><li>Suporte prioritário</li><li>Integração com administradora</li>
+      </ul>
+      <a href="app.html" class="price-btn solid">Testar grátis por 30 dias</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Enterprise</div>
+      <div class="price-val">Custom</div>
+      <div class="price-period">acima de 300 unidades</div>
+      <ul class="price-features">
+        <li>Tudo do Pro</li><li>Multi-condomínios</li><li>API para administradoras</li><li>SLA garantido</li><li>Onboarding dedicado</li>
+      </ul>
+      <a href="mailto:contato@hubhome.com.br" class="price-btn dark">Falar com o time</a>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-label">Depoimentos</div>
+  <div class="section-title">Quem já usa o HubHome.</div>
+  <div class="test-grid">
+    <div class="test-card"><div class="test-quote">"O WhatsApp do condomínio era um caos. Com o HubHome, cada coisa tem seu lugar. O síndico consegue gerenciar tudo e eu sei o status do meu chamado em tempo real."</div><div class="test-author"><div class="test-avatar">MR</div><div><div class="test-name">Marina R.</div><div class="test-role">Moradora · Tradition Brooklin</div></div></div></div>
+    <div class="test-card"><div class="test-quote">"Antes eu perdia horas respondendo as mesmas perguntas sobre o regulamento. Agora a IA responde. Sobrou tempo pra resolver o que realmente importa."</div><div class="test-author"><div class="test-avatar">CS</div><div><div class="test-name">Carlos S.</div><div class="test-role">Síndico · 180 unidades · SP</div></div></div></div>
+    <div class="test-card"><div class="test-quote">"A portaria virou outra coisa. Cada visitante cadastrado, cada prestador identificado. Segurança muito maior, sem complicar o trabalho da equipe."</div><div class="test-author"><div class="test-avatar">AP</div><div><div class="test-name">Ana P.</div><div class="test-role">Gestora · Administradora SP</div></div></div></div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="section-title">Seu condomínio merece tecnologia de verdade.</div>
+  <div class="section-sub">30 dias grátis. Sem cartão. Setup em 1 dia.</div>
+  <div class="cta-actions">
+    <a href="app.html" class="btn-primary" style="background:#fff;color:var(--blue)">Acessar o app agora <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="mailto:contato@hubhome.com.br" class="btn-ghost" style="color:rgba(255,255,255,.7)">Falar com o fundador →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">HubHome</div>
+  <div class="footer-copy">© 2025 HubHome · São Paulo, SP</div>
+  <div class="footer-links"><a href="#">Termos</a><a href="#">Privacidade</a><a href="mailto:contato@hubhome.com.br">Contato</a></div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1});
+document.querySelectorAll('.feat-card,.price-card,.test-card,.prob-card,.how-step').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity .5s ease, transform .5s ease';obs.observe(el)});
+</script>
+</body>
+</html>
